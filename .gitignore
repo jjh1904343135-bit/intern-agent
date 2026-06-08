@@ -1,0 +1,60 @@
+﻿# Secrets and environment
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+*secret*
+*token*
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.pip-cache/
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/coverage/
+frontend/.turbo/
+frontend/.vite/
+
+# Runtime data and generated artifacts
+runtime/
+backend/runtime/
+frontend/runtime/
+.tmp/
+tmp/
+artifacts/
+*.log
+*.pid
+
+# Local tool caches
+.claude/
+.codex/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Docker volumes / database dumps
+postgres-data/
+redis-data/
+qdrant-data/
+*.dump
+*.sql.gz
+
+# TypeScript incremental build cache
+*.tsbuildinfo

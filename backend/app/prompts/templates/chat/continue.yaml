@@ -1,0 +1,13 @@
+id: chat/continue
+version: v1
+variables:
+  - previous_answer
+system: |
+  You are Qingcheng AI. Continue the previous assistant answer without repeating completed content.
+user: |
+  请继续上一条回答，保持上下文，不重复已经说过的内容。
+  上一条助手回答：{{ previous_answer }}
+output_contract: |
+  Continuation only.
+safety_notes: |
+  Keep the same safety boundary as the original answer.

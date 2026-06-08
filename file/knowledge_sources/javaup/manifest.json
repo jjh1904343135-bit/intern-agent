@@ -1,0 +1,418 @@
+{
+  "source": "shining-stars-l/javaup",
+  "files": [
+    {
+      "repo_path": "docs/06-基础内功/01-操作系统/01.进程线程与协程.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01.%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01.%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\01-操作系统\\01.进程线程与协程.md",
+      "bytes": 8393
+    },
+    {
+      "repo_path": "docs/06-基础内功/01-操作系统/02.进程通信与调度.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B8%8E%E8%B0%83%E5%BA%A6.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E4%B8%8E%E8%B0%83%E5%BA%A6.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\01-操作系统\\02.进程通信与调度.md",
+      "bytes": 14609
+    },
+    {
+      "repo_path": "docs/06-基础内功/01-操作系统/03.内存管理与虚拟地址.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/03.%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/03.%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E4%B8%8E%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\01-操作系统\\03.内存管理与虚拟地址.md",
+      "bytes": 12089
+    },
+    {
+      "repo_path": "docs/06-基础内功/01-操作系统/06.IO优化与零拷贝.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/06.IO%E4%BC%98%E5%8C%96%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/01-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/06.IO%E4%BC%98%E5%8C%96%E4%B8%8E%E9%9B%B6%E6%8B%B7%E8%B4%9D.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\01-操作系统\\06.IO优化与零拷贝.md",
+      "bytes": 15822
+    },
+    {
+      "repo_path": "docs/06-基础内功/02-网络/02.TCP协议深入解析.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/02-%E7%BD%91%E7%BB%9C/02.TCP%E5%8D%8F%E8%AE%AE%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/02-%E7%BD%91%E7%BB%9C/02.TCP%E5%8D%8F%E8%AE%AE%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\02-网络\\02.TCP协议深入解析.md",
+      "bytes": 14841
+    },
+    {
+      "repo_path": "docs/06-基础内功/02-网络/03.HTTP协议演进与特性.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/02-%E7%BD%91%E7%BB%9C/03.HTTP%E5%8D%8F%E8%AE%AE%E6%BC%94%E8%BF%9B%E4%B8%8E%E7%89%B9%E6%80%A7.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/02-%E7%BD%91%E7%BB%9C/03.HTTP%E5%8D%8F%E8%AE%AE%E6%BC%94%E8%BF%9B%E4%B8%8E%E7%89%B9%E6%80%A7.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\02-网络\\03.HTTP协议演进与特性.md",
+      "bytes": 9718
+    },
+    {
+      "repo_path": "docs/06-基础内功/03-数据结构/01.线性数据结构.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/03-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/01.%E7%BA%BF%E6%80%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/03-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/01.%E7%BA%BF%E6%80%A7%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\03-数据结构\\01.线性数据结构.md",
+      "bytes": 10435
+    },
+    {
+      "repo_path": "docs/06-基础内功/03-数据结构/02.树形结构基础.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/03-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/02.%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/06-%E5%9F%BA%E7%A1%80%E5%86%85%E5%8A%9F/03-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/02.%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\06-基础内功\\03-数据结构\\02.树形结构基础.md",
+      "bytes": 11680
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/10-MySQL锁/08.MySQL行级锁详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/10-MySQL%E9%94%81/08.MySQL%E8%A1%8C%E7%BA%A7%E9%94%81%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/10-MySQL%E9%94%81/08.MySQL%E8%A1%8C%E7%BA%A7%E9%94%81%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\10-MySQL锁\\08.MySQL行级锁详解.md",
+      "bytes": 19097
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/10-MySQL锁/10.MySQL死锁问题分析与解决.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/10-MySQL%E9%94%81/10.MySQL%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/10-MySQL%E9%94%81/10.MySQL%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E5%86%B3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\10-MySQL锁\\10.MySQL死锁问题分析与解决.md",
+      "bytes": 21078
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/11-MySQL事务/11.MySQL事务机制与ACID特性.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/11.MySQL%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6%E4%B8%8EACID%E7%89%B9%E6%80%A7.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/11.MySQL%E4%BA%8B%E5%8A%A1%E6%9C%BA%E5%88%B6%E4%B8%8EACID%E7%89%B9%E6%80%A7.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\11-MySQL事务\\11.MySQL事务机制与ACID特性.md",
+      "bytes": 8384
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/11-MySQL事务/13.MySQL事务隔离级别详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/13.MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/13.MySQL%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\11-MySQL事务\\13.MySQL事务隔离级别详解.md",
+      "bytes": 12256
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/11-MySQL事务/14.MySQL隔离级别实现原理.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/14.MySQL%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/11-MySQL%E4%BA%8B%E5%8A%A1/14.MySQL%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\11-MySQL事务\\14.MySQL隔离级别实现原理.md",
+      "bytes": 15803
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/12-MySQL索引/18.MySQL索引基础与底层原理.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/18.MySQL%E7%B4%A2%E5%BC%95%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/18.MySQL%E7%B4%A2%E5%BC%95%E5%9F%BA%E7%A1%80%E4%B8%8E%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\12-MySQL索引\\18.MySQL索引基础与底层原理.md",
+      "bytes": 9384
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/12-MySQL索引/20.MySQL联合索引与查询优化.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/20.MySQL%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/20.MySQL%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E4%B8%8E%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\12-MySQL索引\\20.MySQL联合索引与查询优化.md",
+      "bytes": 13288
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/12-MySQL索引/21.MySQL索引失效问题排查.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/21.MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/12-MySQL%E7%B4%A2%E5%BC%95/21.MySQL%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\12-MySQL索引\\21.MySQL索引失效问题排查.md",
+      "bytes": 12616
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/13-MySQL慢SQL调优/23.执行计划深度解析与实战.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/13-MySQL%E6%85%A2SQL%E8%B0%83%E4%BC%98/23.%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/13-MySQL%E6%85%A2SQL%E8%B0%83%E4%BC%98/23.%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%AE%9E%E6%88%98.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\13-MySQL慢SQL调优\\23.执行计划深度解析与实战.md",
+      "bytes": 14813
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/13-MySQL慢SQL调优/26.SQL性能调优全面指南.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/13-MySQL%E6%85%A2SQL%E8%B0%83%E4%BC%98/26.SQL%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/13-MySQL%E6%85%A2SQL%E8%B0%83%E4%BC%98/26.SQL%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98%E5%85%A8%E9%9D%A2%E6%8C%87%E5%8D%97.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\13-MySQL慢SQL调优\\26.SQL性能调优全面指南.md",
+      "bytes": 25851
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/14-MySQL特征/01.MySQL架构与执行流程.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/14-MySQL%E7%89%B9%E5%BE%81/01.MySQL%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/14-MySQL%E7%89%B9%E5%BE%81/01.MySQL%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\14-MySQL特征\\01.MySQL架构与执行流程.md",
+      "bytes": 21955
+    },
+    {
+      "repo_path": "docs/11-数据库/01-MySQL/14-MySQL特征/05.MySQL存储引擎与高级特性.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/14-MySQL%E7%89%B9%E5%BE%81/05.MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/01-MySQL/14-MySQL%E7%89%B9%E5%BE%81/05.MySQL%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\01-MySQL\\14-MySQL特征\\05.MySQL存储引擎与高级特性.md",
+      "bytes": 24147
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/01-Redis基础与数据类型/01.Redis数据类型详解与应用场景.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/01-Redis%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/01.Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/01-Redis%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/01.Redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\01-Redis基础与数据类型\\01.Redis数据类型详解与应用场景.md",
+      "bytes": 48623
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/01-Redis基础与数据类型/03.Redis线程模型与性能优化.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/01-Redis%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/03.Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/01-Redis%E5%9F%BA%E7%A1%80%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/03.Redis%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\01-Redis基础与数据类型\\03.Redis线程模型与性能优化.md",
+      "bytes": 5631
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/02-Redis持久化与内存/01.Redis持久化与数据安全.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/02-Redis%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E5%86%85%E5%AD%98/01.Redis%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/02-Redis%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E5%86%85%E5%AD%98/01.Redis%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\02-Redis持久化与内存\\01.Redis持久化与数据安全.md",
+      "bytes": 14603
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/03-Redis集群与高可用/02.Redis集群架构与高可用方案.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/03-Redis%E9%9B%86%E7%BE%A4%E4%B8%8E%E9%AB%98%E5%8F%AF%E7%94%A8/02.Redis%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/03-Redis%E9%9B%86%E7%BE%A4%E4%B8%8E%E9%AB%98%E5%8F%AF%E7%94%A8/02.Redis%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%B8%8E%E9%AB%98%E5%8F%AF%E7%94%A8%E6%96%B9%E6%A1%88.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\03-Redis集群与高可用\\02.Redis集群架构与高可用方案.md",
+      "bytes": 37643
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/06-Redis分布式锁/01.Redis分布式锁实战指南.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/06-Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/01.Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/06-Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/01.Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\06-Redis分布式锁\\01.Redis分布式锁实战指南.md",
+      "bytes": 40035
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/06-Redis分布式锁/03.Redisson分布式锁核心实现原理.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/06-Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/03.Redisson%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/06-Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/03.Redisson%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\06-Redis分布式锁\\03.Redisson分布式锁核心实现原理.md",
+      "bytes": 21605
+    },
+    {
+      "repo_path": "docs/11-数据库/02-Redis/07-Redis缓存一致性/01.Redis与数据库一致性保障方案.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/07-Redis%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/01.Redis%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E8%87%B4%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%96%B9%E6%A1%88.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/11-%E6%95%B0%E6%8D%AE%E5%BA%93/02-Redis/07-Redis%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/01.Redis%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%80%E8%87%B4%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%96%B9%E6%A1%88.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\11-数据库\\02-Redis\\07-Redis缓存一致性\\01.Redis与数据库一致性保障方案.md",
+      "bytes": 23893
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/01.Spring核心概念详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/01.Spring%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/01.Spring%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\01.Spring核心概念详解.md",
+      "bytes": 13427
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/02.Bean生命周期与依赖注入.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/02.Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/02.Bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\02.Bean生命周期与依赖注入.md",
+      "bytes": 13439
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/05.Spring循环依赖解决方案详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/05.Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/05.Spring%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\05.Spring循环依赖解决方案详解.md",
+      "bytes": 24216
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/10-Spring事务/06.Spring事务管理核心详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/10-Spring%E4%BA%8B%E5%8A%A1/06.Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%A0%B8%E5%BF%83%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/10-Spring%E4%BA%8B%E5%8A%A1/06.Spring%E4%BA%8B%E5%8A%A1%E7%AE%A1%E7%90%86%E6%A0%B8%E5%BF%83%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\10-Spring事务\\06.Spring事务管理核心详解.md",
+      "bytes": 16231
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/10-Spring事务/09.Spring事务失效场景与解决方案.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/10-Spring%E4%BA%8B%E5%8A%A1/09.Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/10-Spring%E4%BA%8B%E5%8A%A1/09.Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E5%9C%BA%E6%99%AF%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\10-Spring事务\\09.Spring事务失效场景与解决方案.md",
+      "bytes": 21817
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/16-SpringBoot/12.SpringBoot自动配置原理深度剖析.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/16-SpringBoot/12.SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/16-SpringBoot/12.SpringBoot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\16-SpringBoot\\12.SpringBoot自动配置原理深度剖析.md",
+      "bytes": 15581
+    },
+    {
+      "repo_path": "docs/16-框架中间件/08-Spring/16-SpringBoot/22.SpringBoot启动原理.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/16-SpringBoot/22.SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/08-Spring/16-SpringBoot/22.SpringBoot%E5%90%AF%E5%8A%A8%E5%8E%9F%E7%90%86.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\08-Spring\\16-SpringBoot\\22.SpringBoot启动原理.md",
+      "bytes": 15622
+    },
+    {
+      "repo_path": "docs/16-框架中间件/09-Mybatis/02.MyBatis工作原理与核心组件.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/09-Mybatis/02.MyBatis%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/09-Mybatis/02.MyBatis%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E4%B8%8E%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\09-Mybatis\\02.MyBatis工作原理与核心组件.md",
+      "bytes": 15036
+    },
+    {
+      "repo_path": "docs/16-框架中间件/09-Mybatis/07.MyBatis缓存机制详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/09-Mybatis/07.MyBatis%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/09-Mybatis/07.MyBatis%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\09-Mybatis\\07.MyBatis缓存机制详解.md",
+      "bytes": 7365
+    },
+    {
+      "repo_path": "docs/16-框架中间件/21-SpringCloud/01.SpringCloud核心概念与架构.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/21-SpringCloud/01.SpringCloud%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%9E%B6%E6%9E%84.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/21-SpringCloud/01.SpringCloud%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E6%9E%B6%E6%9E%84.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\21-SpringCloud\\01.SpringCloud核心概念与架构.md",
+      "bytes": 18175
+    },
+    {
+      "repo_path": "docs/16-框架中间件/21-SpringCloud/05.Nacos架构与核心功能详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/21-SpringCloud/05.Nacos%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/21-SpringCloud/05.Nacos%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\21-SpringCloud\\05.Nacos架构与核心功能详解.md",
+      "bytes": 13136
+    },
+    {
+      "repo_path": "docs/16-框架中间件/23-Kafka/01.Kafka基础架构与核心概念.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/23-Kafka/01.Kafka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/23-Kafka/01.Kafka%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84%E4%B8%8E%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\23-Kafka\\01.Kafka基础架构与核心概念.md",
+      "bytes": 9123
+    },
+    {
+      "repo_path": "docs/16-框架中间件/23-Kafka/02.Kafka消息可靠性保障机制.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/23-Kafka/02.Kafka%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%9C%BA%E5%88%B6.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/23-Kafka/02.Kafka%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%9C%BA%E5%88%B6.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\23-Kafka\\02.Kafka消息可靠性保障机制.md",
+      "bytes": 12905
+    },
+    {
+      "repo_path": "docs/16-框架中间件/24-RocketMQ/02.RocketMQ消息可靠性保障机制.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/24-RocketMQ/02.RocketMQ%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%9C%BA%E5%88%B6.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/24-RocketMQ/02.RocketMQ%E6%B6%88%E6%81%AF%E5%8F%AF%E9%9D%A0%E6%80%A7%E4%BF%9D%E9%9A%9C%E6%9C%BA%E5%88%B6.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\24-RocketMQ\\02.RocketMQ消息可靠性保障机制.md",
+      "bytes": 18298
+    },
+    {
+      "repo_path": "docs/16-框架中间件/26-Elasticsearch/02.倒排索引原理与性能优势.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/26-Elasticsearch/02.%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8A%BF.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/26-Elasticsearch/02.%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E5%8E%9F%E7%90%86%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8A%BF.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\26-Elasticsearch\\02.倒排索引原理与性能优势.md",
+      "bytes": 9522
+    },
+    {
+      "repo_path": "docs/16-框架中间件/27-Dubbo/02.Dubbo核心架构与调用流程.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/27-Dubbo/02.Dubbo%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/27-Dubbo/02.Dubbo%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\27-Dubbo\\02.Dubbo核心架构与调用流程.md",
+      "bytes": 14540
+    },
+    {
+      "repo_path": "docs/16-框架中间件/28-Netty/01.Netty核心架构与线程模型.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/28-Netty/01.Netty%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/28-Netty/01.Netty%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\28-Netty\\01.Netty核心架构与线程模型.md",
+      "bytes": 7227
+    },
+    {
+      "repo_path": "docs/16-框架中间件/28-Netty/03.Netty零拷贝技术详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/28-Netty/03.Netty%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/16-%E6%A1%86%E6%9E%B6%E4%B8%AD%E9%97%B4%E4%BB%B6/28-Netty/03.Netty%E9%9B%B6%E6%8B%B7%E8%B4%9D%E6%8A%80%E6%9C%AF%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\16-框架中间件\\28-Netty\\03.Netty零拷贝技术详解.md",
+      "bytes": 9680
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/01-微服务相关/04.微服务治理与稳定性保障.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/01-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3/04.%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E4%B8%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%BF%9D%E9%9A%9C.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/01-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3/04.%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E4%B8%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E4%BF%9D%E9%9A%9C.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\01-微服务相关\\04.微服务治理与稳定性保障.md",
+      "bytes": 21734
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/02-分布式相关理论/01.分布式系统一致性理论详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/02-%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA/01.%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%80%E8%87%B4%E6%80%A7%E7%90%86%E8%AE%BA%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/02-%E5%88%86%E5%B8%83%E5%BC%8F%E7%9B%B8%E5%85%B3%E7%90%86%E8%AE%BA/01.%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%80%E8%87%B4%E6%80%A7%E7%90%86%E8%AE%BA%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\02-分布式相关理论\\01.分布式系统一致性理论详解.md",
+      "bytes": 17194
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/03-分布式id/01.分布式ID生成方案详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E5%88%86%E5%B8%83%E5%BC%8Fid/01.%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E5%88%86%E5%B8%83%E5%BC%8Fid/01.%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90%E6%96%B9%E6%A1%88%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\03-分布式id\\01.分布式ID生成方案详解.md",
+      "bytes": 40464
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/04-限流与熔断/01.限流算法原理与实现.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%99%90%E6%B5%81%E4%B8%8E%E7%86%94%E6%96%AD/01.%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%99%90%E6%B5%81%E4%B8%8E%E7%86%94%E6%96%AD/01.%E9%99%90%E6%B5%81%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E7%8E%B0.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\04-限流与熔断\\01.限流算法原理与实现.md",
+      "bytes": 15635
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/04-限流与熔断/04.高并发系统设计实践.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%99%90%E6%B5%81%E4%B8%8E%E7%86%94%E6%96%AD/04.%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%99%90%E6%B5%81%E4%B8%8E%E7%86%94%E6%96%AD/04.%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%AE%9E%E8%B7%B5.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\04-限流与熔断\\04.高并发系统设计实践.md",
+      "bytes": 4638
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/05-缓存的设计/04.多级缓存架构设计与实践.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/05-%E7%BC%93%E5%AD%98%E7%9A%84%E8%AE%BE%E8%AE%A1/04.%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E8%B7%B5.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/05-%E7%BC%93%E5%AD%98%E7%9A%84%E8%AE%BE%E8%AE%A1/04.%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E8%B7%B5.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\05-缓存的设计\\04.多级缓存架构设计与实践.md",
+      "bytes": 2324
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/06-布隆过滤器/01.布隆过滤器原理与实战应用.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/06-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/01.%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/06-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/01.%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\06-布隆过滤器\\01.布隆过滤器原理与实战应用.md",
+      "bytes": 18308
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/10-问题故障解决/01.JVM诊断工具命令详解.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/10-%E9%97%AE%E9%A2%98%E6%95%85%E9%9A%9C%E8%A7%A3%E5%86%B3/01.JVM%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/10-%E9%97%AE%E9%A2%98%E6%95%85%E9%9A%9C%E8%A7%A3%E5%86%B3/01.JVM%E8%AF%8A%E6%96%AD%E5%B7%A5%E5%85%B7%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\10-问题故障解决\\01.JVM诊断工具命令详解.md",
+      "bytes": 12512
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/17-分库分表/01.分库分表核心概念与应用场景.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/17-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/01.%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/17-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/01.%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\17-分库分表\\01.分库分表核心概念与应用场景.md",
+      "bytes": 5012
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/18-分布式事务/01.分布式事务基础概念与解决方案.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/18-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/01.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/18-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/01.%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%E4%B8%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\18-分布式事务\\01.分布式事务基础概念与解决方案.md",
+      "bytes": 9825
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/19-Seata/01.Seata分布式事务框架核心原理.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/19-Seata/01.Seata%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%A1%86%E6%9E%B6%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/19-Seata/01.Seata%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E6%A1%86%E6%9E%B6%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\19-Seata\\01.Seata分布式事务框架核心原理.md",
+      "bytes": 7926
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/20-DDD/01.领域驱动设计核心思想与价值.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/20-DDD/01.%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E4%B8%8E%E4%BB%B7%E5%80%BC.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/20-DDD/01.%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E4%B8%8E%E4%BB%B7%E5%80%BC.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\20-DDD\\01.领域驱动设计核心思想与价值.md",
+      "bytes": 8327
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/25-AI/03.RAG检索增强生成技术.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/25-AI/03.RAG%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/25-AI/03.RAG%E6%A3%80%E7%B4%A2%E5%A2%9E%E5%BC%BA%E7%94%9F%E6%88%90%E6%8A%80%E6%9C%AF.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\25-AI\\03.RAG检索增强生成技术.md",
+      "bytes": 8795
+    },
+    {
+      "repo_path": "docs/21-进阶设计与性能优化/25-AI/04.AIAgent与工具调用协议.md",
+      "source_url": "https://github.com/shining-stars-l/javaup/blob/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/25-AI/04.AIAgent%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AE.md",
+      "raw_url": "https://raw.githubusercontent.com/shining-stars-l/javaup/master/docs/21-%E8%BF%9B%E9%98%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/25-AI/04.AIAgent%E4%B8%8E%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E5%8D%8F%E8%AE%AE.md",
+      "local_path": "D:\\codex\\intern-agent\\file\\knowledge_sources\\javaup\\21-进阶设计与性能优化\\25-AI\\04.AIAgent与工具调用协议.md",
+      "bytes": 11763
+    }
+  ]
+}

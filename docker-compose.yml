@@ -1,0 +1,134 @@
+﻿services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: intern-agent-api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - runtime_data:/app/runtime
+      - ./file:/app/file:ro
+      - ./skills:/app/skills:ro
+    command: ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      qdrant:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: intern-agent-worker
+    env_file:
+      - .env
+    command: ["python", "-m", "app.tasks.resume_tasks"]
+    volumes:
+      - runtime_data:/app/runtime
+      - ./file:/app/file:ro
+    depends_on:
+      api:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  notification-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: intern-agent-notification-worker
+    env_file:
+      - .env
+    command: ["python", "-m", "app.tasks.telegram_tasks"]
+    volumes:
+      - runtime_data:/app/runtime
+    depends_on:
+      api:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  frontend:
+    image: node:20-alpine
+    container_name: intern-agent-frontend
+    working_dir: /app
+    env_file:
+      - .env
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-}
+    volumes:
+      - ./frontend:/app
+      - frontend_node_modules:/app/node_modules
+      - frontend_runtime_next:/app/.next-runtime
+    command: ["sh", "-c", "if [ ! -x node_modules/.bin/next ]; then npm install; fi && rm -rf /app/.next-runtime/* && NEXT_DIST_DIR=.next-runtime npm run build && NEXT_DIST_DIR=.next-runtime npm run start"]
+    ports:
+      - "${FRONTEND_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    container_name: intern-agent-nginx
+    ports:
+      - "${NGINX_PORT:-80}:80"
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      api:
+        condition: service_healthy
+      frontend:
+        condition: service_started
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: intern-agent-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-internagent}
+      POSTGRES_USER: ${POSTGRES_USER:-intern}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-intern123}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-intern} -d ${POSTGRES_DB:-internagent}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
+
+  redis:
+    image: redis:7-alpine
+    container_name: intern-agent-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: intern-agent-qdrant
+    ports:
+      - "${QDRANT_PORT:-6333}:6333"
+
+volumes:
+  pgdata:
+  frontend_node_modules:
+  frontend_runtime_next:
+  runtime_data:

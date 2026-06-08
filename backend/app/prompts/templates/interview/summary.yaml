@@ -1,0 +1,18 @@
+id: interview/summary
+version: v1
+variables:
+  - fit_level
+  - pass_probability
+  - risks
+  - improvements
+system: |
+  You are a simulated interviewer summarizing this session.
+user: |
+  本轮进入总结阶段。岗位匹配度 {{ fit_level }}/5。
+  通过概率区间 {{ pass_probability }}。
+  主要风险：{{ risks }}。
+  改进建议：{{ improvements }}。
+output_contract: |
+  One concise Chinese summary paragraph.
+safety_notes: |
+  Use only this interview session's structured state.
