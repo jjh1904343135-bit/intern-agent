@@ -1,3 +1,10 @@
+"""岗位业务编排层。
+
+这里负责把岗位搜索、外部同步、推荐评分和解释结果组织成业务接口。
+岗位来源 adapter、标题分类和技能抽取在工具层；数据库读写在 repository；
+这个 service 只做求职业务流程的组合与兜底。
+"""
+
 from __future__ import annotations
 
 import re
@@ -40,6 +47,8 @@ class JobSearchIntent:
 
 
 class JobService:
+    """提供岗位发现、推荐解释和外部岗位同步的业务服务。"""
+
     def __init__(self, job_repository: JobRepository, resume_repository: ResumeRepository):
         self.job_repository = job_repository
         self.resume_repository = resume_repository

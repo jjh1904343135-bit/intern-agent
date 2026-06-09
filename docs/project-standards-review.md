@@ -47,3 +47,26 @@ Kept because they still describe stable project behavior:
 3. Add Python lint/format config and frontend lint/format config.
 4. Add provenance/license notes for `file/knowledge_sources/javaup/`.
 5. Move large local experiments into branches before pushing them to `main`.
+
+## Chinese-Learner Readability Review
+
+Full manual review cannot be done by loading every file into one model context. The practical workflow is staged:
+
+1. Use repository-wide scans to find large files, missing docstrings, vague names, and broken Markdown.
+2. Review high-risk entry files first: `chat_service.py`, `job_service.py`, `interview_service.py`, memory services, and tool adapters.
+3. Add module-level Chinese guidance before renaming code, because broad renames can break imports, tests, and external references.
+4. Rename only when the existing name is actively misleading.
+
+Current readability findings:
+
+- `docs/architecture/agent-learning-route.md` was not readable Chinese and was rewritten.
+- The backend has several large orchestration files that need top-level guidance for new readers.
+- Naming is mostly English and structurally consistent, but some names such as `run`, `handle`, and `tool_context` require surrounding explanation for beginners.
+- The project should keep identifiers in English for ecosystem compatibility, while using Chinese in documentation, module comments, and learning notes.
+
+Comment policy for this project:
+
+- Explain layer ownership, workflow, and non-obvious business choices.
+- Do not translate every line of code.
+- Prefer comments like “why this branch exists” over “assign value to variable”.
+- Public services, Agent entry points, and long utility modules should have a short Chinese reading note.

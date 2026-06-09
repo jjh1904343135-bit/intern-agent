@@ -21,9 +21,15 @@ MEMORY_TRACKED_PATHS = [
     ".dream/line_state.json",
 ]
 
+# 阅读入口：Dream 是慢速长期记忆整理器。它先分析 history.jsonl 中的新摘要，
+# 再对 USER.md、SOUL.md、memory/MEMORY.md 做最小行级编辑，并把变更提交到
+# 用户 runtime 目录内的独立 Git 仓库。
+
 
 @dataclass(frozen=True)
 class DreamMemoryService:
+    """执行 Dream 的分析、精确编辑、日志查看和回滚。"""
+
     root: Path | str | None = None
     file_memory_service: AIMemoryFileService | None = None
 

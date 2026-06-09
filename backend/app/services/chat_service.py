@@ -39,6 +39,10 @@ from app.services.trace import (
 
 AI_ASSISTANT_TYPE = "ai_assistant"
 
+# 阅读入口：这个 service 是 AI 助手聊天主编排层。它把一次用户消息串成
+# “命令拦截 -> 复杂度分流 -> 工具上下文 -> 模型流式输出 -> 记忆归档”。
+# 具体业务能力不要写在这里，应下沉到对应 service 或 repository。
+
 
 @dataclass
 class ChatServiceError(Exception):
@@ -48,6 +52,8 @@ class ChatServiceError(Exception):
 
 
 class ChatService:
+    """把一次用户消息编排成可追踪、可持久化的 AI 助手回合。"""
+
     def __init__(self, chat_repository: ChatSessionRepository, supervisor: SupervisorAgent | None = None):
         self.chat_repository = chat_repository
         self.supervisor = supervisor or SupervisorAgent()

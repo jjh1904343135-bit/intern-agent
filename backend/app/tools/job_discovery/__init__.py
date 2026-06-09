@@ -12,6 +12,10 @@ from app.repositories.job_repository import JobRepository
 
 EXTERNAL_SOURCES = {"ashby", "greenhouse", "lever"}
 LOW_CONFIDENCE_THRESHOLD = 0.55
+
+# 阅读入口：这个模块做“岗位发现”的纯计算部分，包括关键词扩展、标题归一、
+# 去重、推荐评分和解释生成。它不直接调用 LLM，也不负责 HTTP 请求入口。
+# 中文岗位词保留在常量中，方便中文母语学习者理解匹配规则。
 CHINA_CITY_TERMS = {
     "北京",
     "上海",
@@ -53,6 +57,8 @@ CHINA_COMPANY_TERMS = {
 
 @dataclass(frozen=True)
 class JobDiscoveryFilters:
+    """用户在岗位搜索里表达出的硬过滤条件。"""
+
     city: str | None = None
     experience: str | None = None
     skills: tuple[str, ...] = ()
@@ -68,6 +74,8 @@ class TitleTaxonomy:
 
 @dataclass(frozen=True)
 class JobSearchCandidate:
+    """进入岗位发现管线的一条标准化候选岗位。"""
+
     id: str
     raw_title: str
     company: str
@@ -91,6 +99,8 @@ class JobSearchCandidate:
 
 @dataclass(frozen=True)
 class JobSearchResult:
+    """岗位搜索器返回的候选列表和扩展后的查询词。"""
+
     candidates: list[JobSearchCandidate]
     query_expansions: list[str]
 

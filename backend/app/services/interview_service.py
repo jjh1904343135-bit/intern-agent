@@ -37,6 +37,9 @@ from app.tools.interview.rule_engine import build_report, evaluate_answer
 MAX_INTERVIEW_ROUNDS = 3
 INTERVIEW_ASSISTANT_TYPE = "interview_assistant"
 
+# 阅读入口：这个 service 只负责“当前一场模拟面试”的状态流转。
+# 它不读取 AI 助手五层记忆，也不把面试内容沉淀进 AI 助手长期记忆。
+
 
 @dataclass
 class InterviewServiceError(Exception):
@@ -46,6 +49,8 @@ class InterviewServiceError(Exception):
 
 
 class InterviewService:
+    """把一次模拟面试回合编排成状态更新和流式反馈。"""
+
     def __init__(
         self,
         interview_repository: InterviewSessionRepository,
