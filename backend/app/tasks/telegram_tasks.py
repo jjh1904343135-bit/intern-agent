@@ -10,6 +10,7 @@ from app.core.database import session_local
 from app.core.providers.factory import get_provider
 from app.core.settings import settings
 from app.repositories.scheduled_task_repository import ScheduledTaskRepository
+from app.services.dream_memory_service import DreamMemoryService
 from app.services.proactive_notification_service import ProactiveNotificationService
 from app.services.scheduled_task_service import ScheduledTaskService
 from app.services.telegram_bridge_service import TelegramBridgeService
@@ -19,6 +20,7 @@ from app.services.telegram_offset_store import TelegramUpdateOffsetStore
 
 logger = logging.getLogger(__name__)
 _last_notification_tick_at = 0.0
+_last_dream_tick_at = 0.0
 _proactive_lock = threading.Lock()
 _proactive_thread: threading.Thread | None = None
 
@@ -121,6 +123,18 @@ def run_scheduled_tasks_once() -> int:
             return asyncio.run(ScheduledTaskService(repository=ScheduledTaskRepository(db)).execute_due_tasks(bot_client=client))
 
 
+def run_dream_tick_once(*, force: bool = False) -> int:
+    if not settings.dream_enabled:
+        return 0
+    global _last_dream_tick_at
+    now_monotonic = time.monotonic()
+    interval_seconds = max(1, settings.dream_interval_hours * 3600)
+    if not force and _last_dream_tick_at and now_monotonic - _last_dream_tick_at < interval_seconds:
+        return 0
+    _last_dream_tick_at = now_monotonic
+    return DreamMemoryService().run_due_users(provider=get_provider())
+
+
 def run_worker_iteration() -> None:
     # 三类任务互相隔离捕获异常，避免主动推送失败拖垮用户聊天或定时任务。
     try:
@@ -135,6 +149,10 @@ def run_worker_iteration() -> None:
         run_scheduled_tasks_once()
     except Exception:
         logger.exception("Scheduled task runner failed")
+    try:
+        run_dream_tick_once()
+    except Exception:
+        logger.exception("Dream memory tick failed")
 
 
 def run_worker() -> None:

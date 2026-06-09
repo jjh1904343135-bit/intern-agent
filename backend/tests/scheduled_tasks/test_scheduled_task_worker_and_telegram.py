@@ -28,10 +28,11 @@ def test_worker_iteration_runs_scheduled_tasks_even_when_telegram_disabled(monke
     monkeypatch.setattr(telegram_tasks, "poll_telegram_updates_once", lambda: calls.append("poll") or 0)
     monkeypatch.setattr(telegram_tasks, "maybe_start_proactive_notifications", lambda: calls.append("proactive") or False)
     monkeypatch.setattr(telegram_tasks, "run_scheduled_tasks_once", lambda: calls.append("scheduled") or 1)
+    monkeypatch.setattr(telegram_tasks, "run_dream_tick_once", lambda: calls.append("dream") or 1)
 
     telegram_tasks.run_worker_iteration()
 
-    assert calls == ["poll", "proactive", "scheduled"]
+    assert calls == ["poll", "proactive", "scheduled", "dream"]
 
 
 def test_telegram_tasks_commands_are_handled(monkeypatch) -> None:

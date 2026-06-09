@@ -19,10 +19,12 @@ def test_worker_iteration_polls_even_when_proactive_scheduler_fails(monkeypatch)
 
     monkeypatch.setattr(telegram_tasks, "poll_telegram_updates_once", fake_poll)
     monkeypatch.setattr(telegram_tasks, "maybe_start_proactive_notifications", fake_start_proactive)
+    monkeypatch.setattr(telegram_tasks, "run_scheduled_tasks_once", lambda: calls.append("scheduled") or 0)
+    monkeypatch.setattr(telegram_tasks, "run_dream_tick_once", lambda: calls.append("dream") or 0)
 
     telegram_tasks.run_worker_iteration()
 
-    assert calls == ["poll", "proactive"]
+    assert calls == ["poll", "proactive", "scheduled", "dream"]
 
 
 def test_proactive_notifications_run_in_background(monkeypatch) -> None:

@@ -8,14 +8,13 @@ from typing import Any
 @dataclass(frozen=True)
 class ChatContextBudget:
     context_window_tokens: int
-    compression_ratio: float = 0.8
+    compression_ratio: float = 0.5
     reserved_output_tokens: int = 900
     keep_recent_messages: int = 6
 
     @property
     def threshold_tokens(self) -> int:
-        usable = max(1, self.context_window_tokens - self.reserved_output_tokens)
-        return max(1, int(usable * self.compression_ratio))
+        return max(1, int(max(1, self.context_window_tokens) * self.compression_ratio))
 
 
 def estimate_tokens(value: Any) -> int:
@@ -81,6 +80,17 @@ def maybe_compress_context(
         "history": recent_history,
         "file_memory_context": compressed_file_memory,
         "summary": summary,
+    }
+
+
+def context_compression_metadata(compression: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "triggered": bool(compression.get("triggered")),
+        "threshold_ratio": compression.get("threshold_ratio"),
+        "threshold_tokens": compression.get("threshold_tokens"),
+        "before_tokens": compression.get("before_tokens"),
+        "after_tokens": compression.get("after_tokens"),
+        "summary": compression.get("summary", ""),
     }
 
 

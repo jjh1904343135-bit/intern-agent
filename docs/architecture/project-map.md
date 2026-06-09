@@ -31,7 +31,8 @@ Controller 只处理请求/响应和鉴权，业务编排放在 service。
 - `backend/app/services/resume_service.py`：文件上传、文本提取、结构化解析、Rubric 评分。
 - `backend/app/services/job_service.py`：岗位搜索、推荐评分、解释、去重、RAG payload。
 - `backend/app/services/knowledge_rag_service.py`：AI 助手八股知识库 Hybrid RAG。
-- `backend/app/services/ai_assistant_file_memory.py`：AI 助手文件化长期记忆，实现 `sessions/*.jsonl`、`history.jsonl`、`USER.md`、`MEMORY.md`、`SOUL.md`。
+- `backend/app/services/ai_assistant_file_memory.py`：AI 助手文件化记忆，实现 `sessions/*.jsonl`、`memory/history.jsonl`、`USER.md`、`SOUL.md`、`memory/MEMORY.md`。
+- `backend/app/services/dream_memory_service.py`：Dream 两阶段记忆整理、runtime Git commit、日志和回滚。
 - `backend/app/services/telegram_bridge_service.py`：Telegram 入站消息复用 AI 助手能力。
 - `backend/app/services/proactive_notification_service.py`：主动推送候选和 send/skip 决策。
 - `backend/app/services/scheduled_task_parser.py`：定时任务自然语言识别，规则优先解析一次性、interval、cron、工作日等表达。
@@ -82,15 +83,16 @@ AI 助手使用文件化长期记忆，运行目录：
 runtime/ai_assistant_memory/users/<user_id>/
   sessions/<session_id>.jsonl
   memory/history.jsonl
+  memory/MEMORY.md
   USER.md
-  MEMORY.md
   SOUL.md
+  .dream/state.json
 ```
 
 - `chat_sessions` 仍是业务会话权威来源。
 - 文件记忆是 Agent 可读上下文层。
 - 会话过长时 soft consolidation 只追加摘要到 `history.jsonl`，不覆盖原始 session JSONL。
-- Dream 第一版只做本地最小编辑，不做 git commit，不暴露内部推理。
+- Dream 做两阶段最小行级编辑，并提交到用户 runtime 目录内的独立 Git 仓库。
 
 ### 面试助手
 

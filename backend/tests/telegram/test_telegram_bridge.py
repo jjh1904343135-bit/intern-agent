@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 
 from sqlalchemy import text
 
+from app.core.settings import settings
 from app.core.database import session_local
 from app.repositories.chat_session_repository import ChatSessionRepository
 from app.repositories.notification_repository import TelegramAccountRepository, TelegramBindCodeRepository
@@ -242,6 +243,28 @@ def test_handle_update_replies_to_bound_chat_without_managing_event_loop(monkeyp
     assert result.processed is True
     assert result.message == "chat_replied"
     assert bot.sent[-1] == FakeSend(chat_id="42", text=f"reply for {user_id}")
+
+
+def test_telegram_dream_command_uses_memory_command_handler(monkeypatch, tmp_path) -> None:
+    bot = FakeBotClient()
+    monkeypatch.setattr(settings, "ai_assistant_memory_dir", str(tmp_path))
+
+    async def fail_run_chat(self, *, user_id: str, message: str, session_id: str | None = None, telegram_chat_id: str | None = None) -> TelegramChatRunResult:
+        raise AssertionError("dream commands must not enter ordinary chat")
+
+    monkeypatch.setattr(TelegramBridgeService, "_run_chat", fail_run_chat)
+    service = TelegramBridgeService(
+        db=None,
+        bot_client=bot,
+        allowed_values={"42"},
+        default_user_email="telegram@example.com",
+    )
+
+    result = service._handle_memory_command(user_id="user-1", chat_id="42", text="/dream")
+
+    assert result.processed is True
+    assert result.message == "dream"
+    assert "Dream" in bot.sent[-1].text
 
 
 def test_handle_update_reuses_bound_telegram_chat_session(monkeypatch) -> None:

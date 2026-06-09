@@ -5,33 +5,47 @@ import json
 from app.services.ai_assistant_file_memory import AIMemoryFileService
 
 
-def test_ai_assistant_file_memory_writes_session_and_reads_long_term_files(tmp_path) -> None:
+def test_ai_assistant_file_memory_creates_five_layer_workspace(tmp_path) -> None:
     service = AIMemoryFileService(root=tmp_path)
 
     service.append_session_message(
         user_id="user-1",
         session_id="session-1",
         role="user",
-        content="我想找北京 Java 后端实习",
+        content="I prefer concise replies and I am targeting backend internships.",
         metadata={"intent": "job_search"},
-    )
-    service.append_session_message(
-        user_id="user-1",
-        session_id="session-1",
-        role="assistant",
-        content="可以，我会优先找北京 Java 后端实习并解释匹配原因。",
-        metadata={"source": "mock"},
     )
 
     context = service.read_context(user_id="user-1", session_id="session-1")
-    session_file = tmp_path / "users" / "user-1" / "sessions" / "session-1.jsonl"
+    workspace = tmp_path / "users" / "user-1"
 
-    assert session_file.exists()
-    assert context["session_recent"][-1]["role"] == "assistant"
-    assert {item["name"] for item in context["files_used"]} >= {"USER.md", "MEMORY.md", "SOUL.md", "session"}
-    assert (tmp_path / "users" / "user-1" / "USER.md").exists()
-    assert (tmp_path / "users" / "user-1" / "MEMORY.md").exists()
-    assert (tmp_path / "users" / "user-1" / "SOUL.md").exists()
+    assert (workspace / "sessions" / "session-1.jsonl").exists()
+    assert (workspace / "memory" / "history.jsonl").exists()
+    assert (workspace / "memory" / "MEMORY.md").exists()
+    assert (workspace / "USER.md").exists()
+    assert (workspace / "SOUL.md").exists()
+    assert (workspace / ".dream" / "state.json").exists()
+    assert not (workspace / "MEMORY.md").exists()
+    assert context["session_recent"][-1]["role"] == "user"
+    assert {item["name"] for item in context["files_used"]} >= {
+        "USER.md",
+        "SOUL.md",
+        "memory/MEMORY.md",
+        "memory/history.jsonl",
+        "session",
+    }
+
+
+def test_ai_assistant_file_memory_migrates_legacy_root_memory_md(tmp_path) -> None:
+    workspace = tmp_path / "users" / "user-1"
+    workspace.mkdir(parents=True)
+    (workspace / "MEMORY.md").write_text("# MEMORY\n\n- legacy project decision\n", encoding="utf-8")
+
+    service = AIMemoryFileService(root=tmp_path)
+    service.read_context(user_id="user-1", session_id="session-1")
+
+    assert not (workspace / "MEMORY.md").exists()
+    assert "legacy project decision" in (workspace / "memory" / "MEMORY.md").read_text(encoding="utf-8")
 
 
 def test_ai_assistant_file_memory_soft_consolidates_without_deleting_raw_session(tmp_path) -> None:
@@ -41,7 +55,8 @@ def test_ai_assistant_file_memory_soft_consolidates_without_deleting_raw_session
             user_id="user-1",
             session_id="session-1",
             role="user" if index % 2 == 0 else "assistant",
-            content=f"第 {index} 条很长的求职偏好内容，目标城市北京，目标岗位 Java 后端。",
+            content=f"turn {index}: user prefers concise replies. Decision: use PostgreSQL for auth. "
+            "Solution: smaller batches fixed the import retry.",
             metadata={"index": index},
         )
 
@@ -50,26 +65,27 @@ def test_ai_assistant_file_memory_soft_consolidates_without_deleting_raw_session
     session_file = tmp_path / "users" / "user-1" / "sessions" / "session-1.jsonl"
 
     assert summary["compacted"] is True
-    assert history_file.exists()
     history_item = json.loads(history_file.read_text(encoding="utf-8").splitlines()[0])
     assert history_item["session_id"] == "session-1"
-    assert "北京" in history_item["summary"]
+    assert history_item["cursor"] == 4
+    assert "PostgreSQL" in history_item["summary"]
+    assert history_item["facts"]["decisions"]
+    assert history_item["facts"]["solutions"]
     assert len(session_file.read_text(encoding="utf-8").splitlines()) == 5
 
 
-def test_ai_assistant_dream_updates_long_term_markdown_from_history(tmp_path) -> None:
-    service = AIMemoryFileService(root=tmp_path, consolidation_char_limit=80, keep_recent_messages=1)
-    service.append_session_message(
-        user_id="user-1",
-        session_id="session-1",
-        role="user",
-        content="我偏好北京和上海的 Java 后端岗位，也关注腾讯。" * 4,
-    )
-    service.append_session_message(user_id="user-1", session_id="session-1", role="assistant", content="已记录你的求职偏好。")
-    service.soft_consolidate(user_id="user-1", session_id="session-1")
+def test_ai_assistant_file_memory_force_consolidates_when_chat_context_is_compressed(tmp_path) -> None:
+    service = AIMemoryFileService(root=tmp_path, consolidation_char_limit=999999, keep_recent_messages=2)
+    for index in range(7):
+        service.append_session_message(
+            user_id="user-1",
+            session_id="session-1",
+            role="user",
+            content=f"turn {index}: Event: interview deadline is 2026-07-{index + 10}.",
+        )
 
-    result = service.dream_update(user_id="user-1")
+    result = service.soft_consolidate(user_id="user-1", session_id="session-1", force=True)
 
-    assert "USER.md" in result["updated_files"]
-    assert "北京" in (tmp_path / "users" / "user-1" / "USER.md").read_text(encoding="utf-8")
-    assert result["history_items_read"] >= 1
+    assert result["compacted"] is True
+    assert result["cursor"] == 5
+    assert result["message_count"] == 5

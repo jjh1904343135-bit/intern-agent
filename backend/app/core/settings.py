@@ -38,8 +38,13 @@ class Settings(BaseSettings):
     claude_transport: str = "ollama_generate"
     claude_timeout_seconds: int = 120
     llm_context_window_tokens: int = 8192
-    llm_context_compression_ratio: float = 0.8
+    llm_context_compression_ratio: float = 0.5
     llm_context_reserved_output_tokens: int = 900
+    dream_enabled: bool = True
+    dream_interval_hours: int = 2
+    dream_max_batch_size: int = 20
+    dream_max_iterations: int = 15
+    dream_model_override: str | None = None
     serpapi_api_key: str | None = None
     apify_token: str | None = None
     enable_global_ats: bool = False

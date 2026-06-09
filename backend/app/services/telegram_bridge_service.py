@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app.repositories.chat_session_repository import ChatSessionRepository
 from app.repositories.notification_repository import TelegramAccountRepository, TelegramBindCodeRepository
 from app.repositories.user_repository import UserRepository
+from app.services.assistant_memory_command_service import AssistantMemoryCommandService
 from app.services.telegram_client import TelegramBotClient
 
 STOPPED_TEXT = "\u5df2\u6682\u505c\u9752\u7a0b AI \u7684 Telegram \u6d88\u606f\u3002"
@@ -160,6 +161,8 @@ class TelegramBridgeService:
             return self._handle_use_session_command(account=account, inbound=inbound, command_args=command_args)
         if command == "/tasks":
             return self._handle_tasks_command(user_id=str(account.user_id), chat_id=inbound.chat_id)
+        if command in {"/dream", "/dream-log", "/dream-restore"}:
+            return self._handle_memory_command(user_id=str(account.user_id), chat_id=inbound.chat_id, text=inbound.text)
         if command == "/cancel_task":
             return self._handle_task_action_command(
                 user_id=str(account.user_id),
@@ -375,6 +378,14 @@ class TelegramBridgeService:
         )
         self.bot_client.send_message(chat_id=chat_id, text=result.reply)
         return TelegramHandleResult(processed=True, message=result.action or "task_action", user_id=user_id)
+
+    def _handle_memory_command(self, *, user_id: str, chat_id: str, text: str) -> TelegramHandleResult:
+        result = AssistantMemoryCommandService().handle(user_id=user_id, message=text)
+        if result is None:
+            self.bot_client.send_message(chat_id=chat_id, text="Unknown memory command.")
+            return TelegramHandleResult(processed=False, message="unknown_memory_command", user_id=user_id)
+        self.bot_client.send_message(chat_id=chat_id, text=result.reply)
+        return TelegramHandleResult(processed=True, message=result.command, user_id=user_id)
 
     def _find_owned_session(self, *, user_id: str, selector: str):
         if not selector:

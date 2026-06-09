@@ -10,24 +10,22 @@ from uuid import uuid4
 
 from app.agents.chat import ChatAssistantAgent
 from app.agents.chat.complexity import AGENTIC_TASK, ChatComplexityClassifier
+from app.agents.chat.context_budget import ChatContextBudget, context_compression_metadata, maybe_compress_context
+from app.agents.chat.tools import ChatToolExecutor, city_from_message, keyword_from_message
 from app.agents.runtime import AgentContext, AgentLifecycleRecorder, AgentRunner
 from app.agents.supervisor import SupervisorAgent, SupervisorTurn
 from app.core.providers.claude_provider import ClaudeProviderError
 from app.core.providers.factory import get_provider
+from app.core.settings import settings
 from app.repositories.assistant_memory_repository import AssistantMemoryRepository
-from app.repositories.application_repository import ApplicationRepository
 from app.repositories.chat_session_repository import ChatSessionRepository
-from app.repositories.job_repository import JobRepository
-from app.repositories.resume_repository import ResumeRepository
 from app.repositories.scheduled_task_repository import ScheduledTaskRepository
 from app.prompts import PromptRegistry
 from app.services.ai_assistant_file_memory import AIMemoryFileService
+from app.services.assistant_memory_command_service import AssistantMemoryCommandService
 from app.services.assistant_memory_markdown_service import AssistantMemoryMarkdownService
-from app.services.application_service import ApplicationService
 from app.services.chat_output_format import format_assistant_plain_text
 from app.services.citation_protocol import build_citation_protocol, normalize_knowledge_citations
-from app.services.job_service import JobService
-from app.services.knowledge_rag_service import KnowledgeRagService
 from app.services.scheduled_task_service import ScheduledTaskChatResult, ScheduledTaskService
 from app.services.streaming import chunk_text, encode_sse_event, stream_event
 from app.services.trace import (
@@ -38,7 +36,6 @@ from app.services.trace import (
     new_agent_run_id,
     new_request_id,
 )
-from app.tools.job_discovery import extract_skills
 
 AI_ASSISTANT_TYPE = "ai_assistant"
 
@@ -77,11 +74,24 @@ class ChatService:
         )
         provider = get_provider()
         assistant_agent = ChatAssistantAgent()
-        agent_context = AgentContext(provider=provider, request_id=request_id, assistant_type=AI_ASSISTANT_TYPE)
         session = self._load_or_create_session(user_id=user_id, session_id=session_id)
         effective_message = self._message_for_action(session=session, message=message, action=action)
         history = list(session.messages or [])
         conversation_id = str(session.id)
+        if action == "send":
+            memory_command = AssistantMemoryCommandService().handle(user_id=user_id, message=effective_message)
+            if memory_command is not None:
+                async for event in self._stream_memory_command_result(
+                    conversation_id=conversation_id,
+                    request_id=request_id,
+                    agent_run_id=agent_run_id,
+                    provider=provider,
+                    action=action,
+                    result=memory_command,
+                    started_at=started_at,
+                ):
+                    yield event
+                return
         # 定时任务会改变任务表和收件箱状态，所以必须在普通模型生成前拦截。
         if action == "send" and not skip_scheduled_task_detection:
             scheduled_result = ScheduledTaskService(repository=ScheduledTaskRepository(self.chat_repository.db)).handle_chat_message(
@@ -154,7 +164,6 @@ class ChatService:
             },
         )
 
-        # 工具只在复杂任务中执行，模型拿到的是结构化事实而不是数据库访问权限。
         tool_context = (
             self._run_tools(user_id=user_id, intent=base_turn.intent, message=effective_message, tools=base_turn.tools)
             if complexity == AGENTIC_TASK
@@ -164,18 +173,37 @@ class ChatService:
         tool_context["assistant_file_memory"] = {"content": file_memory_context.get("summary_text", "")}
         if complexity == AGENTIC_TASK and (memory_snapshot_content := self._load_assistant_memory_snapshot_content(user_id=user_id)):
             tool_context["assistant_memory_snapshot"] = {"content": memory_snapshot_content}
+
+        compression = maybe_compress_context(
+            history=history,
+            file_memory_context=file_memory_context,
+            tool_context=tool_context,
+            prompt=base_turn.prompt,
+            budget=ChatContextBudget(
+                context_window_tokens=settings.llm_context_window_tokens,
+                compression_ratio=settings.llm_context_compression_ratio,
+                reserved_output_tokens=settings.llm_context_reserved_output_tokens,
+            ),
+        )
+        context_compression = context_compression_metadata(compression)
+        if compression.get("triggered"):
+            history = compression["history"]
+            file_memory_context = compression["file_memory_context"]
+            tool_context["assistant_file_memory"] = {"content": file_memory_context.get("summary_text", "")}
+
         turn = (
             self.supervisor.plan_turn(message=effective_message, history=history, tool_context=tool_context)
             if complexity == AGENTIC_TASK
-            else base_turn
+            else self._simple_turn(message=effective_message, history=history, file_memory_context=file_memory_context)
         )
         lifecycle.complete(
             "PromptRender",
             prompt_chars=len(turn.prompt),
             system_prompt_chars=len(turn.system_prompt),
             tool_count=len([name for name in turn.tools if tool_context.get(name)]),
+            context_compression=context_compression,
         )
-        lifecycle.complete("Reasoner", provider=provider.name, model=provider.model)
+        lifecycle.complete("Reasoner", provider=provider.name, model=provider.model, runtime="custom")
         status = "ready"
         source = provider.name
         issues: list[str] = []
@@ -184,8 +212,10 @@ class ChatService:
         first_token_latency_ms: int | None = None
         delta_count = 0
 
+        runtime_metadata_patch: dict[str, Any] = {"agent_runtime": "custom", "context_compression": context_compression}
+
         try:
-            # ChatAssistantAgent 只负责模型生成；SSE 事件、清洗、落库和记忆由 Service 控制。
+            agent_context = AgentContext(provider=provider, request_id=request_id, assistant_type=AI_ASSISTANT_TYPE)
             async for content_delta in AgentRunner().stream(
                 assistant_agent,
                 prompt=turn.prompt,
@@ -227,7 +257,8 @@ class ChatService:
             if not final_text.strip():
                 raise ClaudeProviderError("model returned empty content", error_type="empty_response")
         except asyncio.CancelledError:
-            partial_text = emitted_text or format_assistant_plain_text("".join(raw_parts))
+            partial_text = emitted_text
+            self._complete_missing_reasoning_phases(lifecycle=lifecycle, turn=turn, tool_context=tool_context, provider=provider)
             lifecycle.complete("AfterReasoning", status="interrupted", delta_count=delta_count)
             lifecycle.complete("AfterTurn", memory_updates={"confirmed_count": 0, "pending_count": 0})
             metadata = self._stream_metadata(
@@ -253,6 +284,7 @@ class ChatService:
                 file_memory_context=file_memory_context,
                 consolidation_summary={"compacted": False, "reason": "interrupted"},
                 dream_update_summary={"updated_files": [], "reason": "interrupted"},
+                extra_metadata=runtime_metadata_patch,
             )
             if partial_text.strip():
                 self._persist_stream_result(
@@ -300,6 +332,7 @@ class ChatService:
             assistant_message=final_text,
             action=action,
             file_memory_service=file_memory_service,
+            force_consolidation=bool(context_compression.get("triggered")),
         )
         lifecycle.complete(
             "AfterTurn",
@@ -332,6 +365,7 @@ class ChatService:
             file_memory_context=file_memory_context,
             consolidation_summary=memory_updates.get("consolidation") or {},
             dream_update_summary=memory_updates.get("dream") or {},
+            extra_metadata=runtime_metadata_patch,
         )
         assistant_full_content = self._combined_continue_content(previous_assistant_content, final_text) if action == "continue" else final_text
         self._persist_stream_result(
@@ -351,6 +385,74 @@ class ChatService:
             conversation_id=conversation_id,
             message_id=assistant_message_id,
             full_content=assistant_full_content,
+            metadata=metadata,
+        )
+
+    @staticmethod
+    def _complete_missing_reasoning_phases(*, lifecycle: AgentLifecycleRecorder, turn, tool_context: dict[str, Any], provider) -> None:
+        phases = lifecycle.summary().get("phases") or []
+        if "PromptRender" not in phases:
+            lifecycle.complete(
+                "PromptRender",
+                prompt_chars=len(getattr(turn, "prompt", "")),
+                system_prompt_chars=len(getattr(turn, "system_prompt", "")),
+                tool_count=len([name for name in getattr(turn, "tools", []) if tool_context.get(name)]),
+            )
+        if "Reasoner" not in lifecycle.summary().get("phases", []):
+            lifecycle.complete("Reasoner", provider=provider.name, model=provider.model, runtime="custom")
+
+    async def _stream_memory_command_result(
+        self,
+        *,
+        conversation_id: str,
+        request_id: str,
+        agent_run_id: str,
+        provider,
+        action: str,
+        result,
+        started_at: float,
+    ) -> AsyncIterator[dict[str, Any]]:
+        message_id = f"assistant-{uuid4()}"
+        metadata = {
+            "action": action,
+            "assistant_type": AI_ASSISTANT_TYPE,
+            "request_id": request_id,
+            "agent_run_id": agent_run_id,
+            "model": provider.model,
+            "provider": provider.name,
+            "source": "memory_command",
+            "status": result.status,
+            "intent": "memory_command",
+            "tools": [],
+            "complexity": "command",
+            "agent_runtime": "custom",
+            "memory_command": result.command,
+            "interrupted": False,
+            "delta_count": 0,
+            "total_latency_ms": 0,
+        }
+        yield stream_event(
+            "start",
+            conversation_id=conversation_id,
+            message_id=message_id,
+            metadata={**metadata, "status": "running"},
+        )
+        delta_count = 0
+        for delta in chunk_text(result.reply):
+            delta_count += 1
+            yield stream_event(
+                "delta",
+                conversation_id=conversation_id,
+                message_id=message_id,
+                content_delta=delta,
+            )
+        metadata["delta_count"] = delta_count
+        metadata["total_latency_ms"] = int((time.perf_counter() - started_at) * 1000)
+        yield stream_event(
+            "end",
+            conversation_id=conversation_id,
+            message_id=message_id,
+            full_content=result.reply,
             metadata=metadata,
         )
 
@@ -648,12 +750,13 @@ class ChatService:
         file_memory_context: dict[str, Any] | None = None,
         consolidation_summary: dict[str, Any] | None = None,
         dream_update_summary: dict[str, Any] | None = None,
+        extra_metadata: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         job_search = tool_context.get("job_search") or {}
         fallback_notice = job_search.get("fallback_notice")
         if source == "fallback_rule" and issues:
             fallback_notice = issues[0]
-        return {
+        metadata = {
             "action": action,
             "assistant_type": AI_ASSISTANT_TYPE,
             "request_id": request_id or new_request_id(),
@@ -706,6 +809,11 @@ class ChatService:
             "recommendations": job_search.get("jobs", [])[:5],
             "suggested_actions": self._suggested_actions(turn=turn, tool_context=tool_context),
         }
+        if extra_metadata:
+            for key, value in extra_metadata.items():
+                if key not in {"agent_name", "agent_chain", "prompt_template_id", "prompt_template_version", "model", "provider"}:
+                    metadata[key] = value
+        return metadata
 
     @staticmethod
     def _suggested_actions(*, turn, tool_context: dict[str, Any]) -> list[dict[str, str]]:
@@ -813,21 +921,7 @@ class ChatService:
         }
 
     def _run_tools(self, *, user_id: str, intent: str, message: str, tools: list[str]) -> dict[str, Any]:
-        db = self.chat_repository.db
-        result: dict[str, Any] = {}
-        # 这里是服务端 allowlist：Supervisor 只能选择这些项目内工具，不能直接执行任意代码。
-        if "resume_profile" in tools:
-            result["resume_profile"] = self._resume_profile(user_id=user_id)
-        if "job_search" in tools:
-            result["job_search"] = self._job_search(user_id=user_id, message=message)
-        if "application_list" in tools:
-            result["application_list"] = self._application_list(user_id=user_id)
-        if "knowledge_search" in tools:
-            result["knowledge_search"] = self._knowledge_search(message=message)
-        return result
-
-    def _knowledge_search(self, *, message: str) -> dict[str, Any]:
-        return KnowledgeRagService(self.chat_repository.db).search(message, limit=5, min_score=0.2)
+        return ChatToolExecutor(db=self.chat_repository.db).run(user_id=user_id, intent=intent, message=message, tools=tools)
 
     def _remember_turn(
         self,
@@ -844,6 +938,7 @@ class ChatService:
         assistant_message: str,
         action: str,
         file_memory_service: AIMemoryFileService | None = None,
+        force_consolidation: bool = False,
     ) -> dict[str, Any]:
         """Archive AI-assistant turns into file memory; PostgreSQL keeps business sessions."""
         service = file_memory_service or AIMemoryFileService()
@@ -863,8 +958,8 @@ class ChatService:
                 content=assistant_message,
                 metadata={"intent": intent, "tools": tools, "status": status, "request_id": request_id, "agent_run_id": agent_run_id},
             )
-            consolidation = service.soft_consolidate(user_id=user_id, session_id=session_id)
-            dream = service.dream_update(user_id=user_id) if consolidation.get("compacted") else {"updated_files": [], "history_items_read": 0}
+            consolidation = service.soft_consolidate(user_id=user_id, session_id=session_id, force=force_consolidation)
+            dream = {"updated_files": [], "history_items_read": 0, "reason": "scheduled_or_manual"}
             context = service.read_context(user_id=user_id, session_id=session_id)
             public_context = service.public_context_metadata(context)
         except Exception:
@@ -1037,121 +1132,13 @@ class ChatService:
             "summary": "最近岗位搜索偏好：" + "；".join(summary_parts),
         }
 
-    def _resume_profile(self, *, user_id: str) -> dict[str, Any]:
-        resume = ResumeRepository(self.chat_repository.db).get_default_by_user_id(user_id=user_id)
-        if resume is None:
-            return {"available": False, "score": None, "risks": []}
-        score = resume.score_report or {}
-        return {
-            "available": True,
-            "file_name": resume.file_name,
-            "parse_status": resume.parse_status,
-            "score": score.get("overall_score"),
-            "risks": list(score.get("risks") or [])[:3],
-            "skills": list((resume.parsed_content or {}).get("skills") or [])[:8],
-        }
-
-    def _job_search(self, *, user_id: str, message: str) -> dict[str, Any]:
-        keyword = self._keyword_from_message(message)
-        city = self._city_from_message(message)
-        experience = "intern" if any(token in message.lower() for token in ["瀹炰範", "intern"]) else None
-        skills = tuple(extract_skills(message))
-        service = JobService(JobRepository(self.chat_repository.db), ResumeRepository(self.chat_repository.db))
-        try:
-            payload = service.discover_jobs(user_id=user_id, keyword=keyword, city=city, experience=experience, skills=skills)
-        except Exception:
-            payload = service.discover_jobs(user_id=None, keyword=keyword, city=city, experience=experience, skills=skills)
-        jobs = payload.get("jobs", [])[:8]
-        return {
-            "total": payload.get("total", 0),
-            "keyword": keyword,
-            "city": city,
-            "experience": experience,
-            "skills": list(skills),
-            "source_kind": payload.get("source_kind"),
-            "fallback_notice": payload.get("fallback_notice"),
-            "query_expansions": payload.get("query_expansions", []),
-            "top_titles": [
-                f"{job.get('company')} {job.get('raw_title')} -> {job.get('canonical_title')} popularity={job.get('popularity_score')}"
-                for job in jobs
-            ],
-            "jobs": [
-                {
-                    "raw_title": job.get("raw_title"),
-                    "canonical_title": job.get("canonical_title"),
-                    "function": job.get("function"),
-                    "specialization": job.get("specialization"),
-                    "city": job.get("city"),
-                    "experience": job.get("experience"),
-                    "skills": job.get("skills", []),
-                    "company": job.get("company"),
-                    "source": job.get("source"),
-                    "url": job.get("url"),
-                    "summary": job.get("summary"),
-                    "popularity_score": job.get("popularity_score"),
-                    "recommendation_score": job.get("recommendation_score"),
-                    "score_dimensions": job.get("score_dimensions", []),
-                    "evidence_summary": job.get("evidence_summary", {}),
-                    "explanation": job.get("explanation"),
-                    "matched_skills": job.get("matched_skills", []),
-                    "missing_skills": job.get("missing_skills", []),
-                    "application_priority": job.get("application_priority"),
-                }
-                for job in jobs
-            ],
-            "apply_urls": [job.get("url") or job.get("apply_url") for job in jobs if job.get("url") or job.get("apply_url")],
-        }
-
-    def _application_list(self, *, user_id: str) -> dict[str, Any]:
-        service = ApplicationService(
-            ApplicationRepository(self.chat_repository.db),
-            JobRepository(self.chat_repository.db),
-            ResumeRepository(self.chat_repository.db),
-        )
-        payload = service.list_applications(user_id=user_id)
-        statuses: dict[str, int] = {}
-        for item in payload.get("items", []):
-            statuses[item.get("status", "unknown")] = statuses.get(item.get("status", "unknown"), 0) + 1
-        return {"total": payload.get("total", 0), "statuses": statuses}
-
     @staticmethod
     def _keyword_from_message(message: str) -> str | None:
-        lowered = message.lower()
-        terms: list[str] = []
-
-        keyword_rules = [
-            ("腾讯", ("腾讯", "tencent")),
-            ("阿里", ("阿里", "alibaba")),
-            ("字节", ("字节", "bytedance", "抖音")),
-            ("美团", ("美团", "meituan")),
-            ("百度", ("百度", "baidu")),
-            ("京东", ("京东", "jd")),
-            ("网易", ("网易", "netease")),
-            ("小米", ("小米", "xiaomi")),
-            ("快手", ("快手", "kuaishou")),
-            ("华为", ("华为", "huawei")),
-            ("Java", ("java",)),
-            ("后端", ("后端", "backend", "服务端", "开发岗")),
-            ("开发", ("开发", "工程师")),
-            ("前端", ("前端", "frontend", "react", "next.js")),
-            ("算法", ("算法", "机器学习", "推荐", "搜索", "llm", "ai")),
-            ("产品", ("产品", "product", "pm")),
-            ("数据", ("数据", "data", "sql")),
-            ("测试", ("测试", "qa", "test")),
-            ("咨询", ("咨询", "consult")),
-        ]
-        for label, tokens in keyword_rules:
-            if any(token in lowered for token in tokens):
-                terms.append(label)
-
-        return " ".join(dict.fromkeys(terms)) or None
+        return keyword_from_message(message)
 
     @staticmethod
     def _city_from_message(message: str) -> str | None:
-        for city in ["北京", "上海", "深圳", "杭州", "广州", "成都", "Remote", "San Francisco", "Singapore"]:
-            if city.lower() in message.lower():
-                return city
-        return None
+        return city_from_message(message)
 
     def _load_or_create_session(self, *, user_id: str, session_id: str | None):
         if session_id:
