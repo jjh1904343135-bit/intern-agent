@@ -11,7 +11,6 @@ from uuid import uuid4
 from app.agents.chat import ChatAssistantAgent
 from app.agents.chat.complexity import AGENTIC_TASK, ChatComplexityClassifier
 from app.agents.chat.context_budget import ChatContextBudget, context_compression_metadata, maybe_compress_context
-from app.agents.chat.tools import ChatToolExecutor, city_from_message, keyword_from_message
 from app.agents.runtime import AgentContext, AgentLifecycleRecorder, AgentRunner
 from app.agents.supervisor import SupervisorAgent, SupervisorTurn
 from app.core.providers.claude_provider import ClaudeProviderError
@@ -25,6 +24,7 @@ from app.services.ai_assistant_file_memory import AIMemoryFileService
 from app.services.assistant_memory_command_service import AssistantMemoryCommandService
 from app.services.assistant_memory_markdown_service import AssistantMemoryMarkdownService
 from app.services.chat_output_format import format_assistant_plain_text
+from app.services.chat_tool_service import ChatToolExecutor, city_from_message, keyword_from_message
 from app.services.citation_protocol import build_citation_protocol, normalize_knowledge_citations
 from app.services.scheduled_task_service import ScheduledTaskChatResult, ScheduledTaskService
 from app.services.streaming import chunk_text, encode_sse_event, stream_event

@@ -366,7 +366,7 @@ def test_chat_stream_uses_knowledge_search_for_technical_questions(monkeypatch) 
                 ],
             }
 
-    monkeypatch.setattr("app.services.chat_service.KnowledgeRagService", FakeKnowledgeService)
+    monkeypatch.setattr("app.services.chat_tool_service.KnowledgeRagService", FakeKnowledgeService)
 
     try:
         with client.stream(

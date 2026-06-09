@@ -27,6 +27,7 @@ Controller 只处理请求/响应和鉴权，业务编排放在 service。
 ## 3. Service 业务层
 
 - `backend/app/services/chat_service.py`：AI 助手主编排。当前流程是复杂度判断 -> 简单直答或 Agent Pipeline -> 工具调用 -> 流式生成 -> 文件化记忆归档。
+- `backend/app/services/chat_tool_service.py`：把岗位、简历、投递、知识库等业务服务包装成 Chat Agent 可消费的工具结果。
 - `backend/app/services/interview_service.py`：模拟面试编排。只维护当前面试 session 的短期状态，不再写复杂长期面试记忆。
 - `backend/app/services/resume_service.py`：文件上传、文本提取、结构化解析、Rubric 评分。
 - `backend/app/services/job_service.py`：岗位搜索、推荐评分、解释、去重、RAG payload。
@@ -41,11 +42,12 @@ Controller 只处理请求/响应和鉴权，业务编排放在 service。
 ## 4. Agent 层
 
 - `backend/app/agents/chat/complexity.py`：简单问题和复杂任务分类。简单问题不调工具，复杂任务进入 Agent Pipeline。
+- `backend/app/agents/chat/assistant.py`：ChatAssistantAgent，只负责把渲染好的 Prompt 交给模型生成文本。
 - `backend/app/agents/supervisor.py`：AI 助手复杂任务规划，决定 intent、steps、tools。
 - `backend/app/agents/runtime/`：Agent 生命周期和流式执行抽象。
 - `backend/app/agents/interview/`：面试 Agent 状态机，包括岗位画像、候选人画像、问题计划、回答信号、评分、难度、追问和总结。
 
-当前设计边界：AI 助手是求职 Agent 总入口；面试助手只做模拟面试，不读取 AI 助手会话和长期记忆。
+当前设计边界：Agent 层负责规划、生成、评估；Service 层负责业务编排、数据库和工具适配。AI 助手是求职 Agent 总入口；面试助手只做模拟面试，不读取 AI 助手会话和长期记忆。
 
 ## 5. Prompt 层
 

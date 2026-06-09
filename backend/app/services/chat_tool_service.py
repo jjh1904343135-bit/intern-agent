@@ -12,6 +12,8 @@ from app.tools.job_discovery import extract_skills
 
 
 class ChatToolExecutor:
+    """Adapter that exposes business services as chat-agent tool results."""
+
     def __init__(self, *, db) -> None:
         self.db = db
 
