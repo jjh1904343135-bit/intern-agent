@@ -11,7 +11,9 @@
 重点文件：
 
 - `docs/architecture/project-map.md`
-- `docs/project-review-status.md`
+- `README.md`
+- `CONTRIBUTING.md`
+- `docs/project-standards-review.md`
 - `skills/*/SKILL.md`
 
 必须掌握：

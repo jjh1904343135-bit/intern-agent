@@ -6,7 +6,7 @@ description: Use when inspecting AI assistant file-based long-term memory, sessi
 # Assistant Memory Tool
 
 ## Tool Contract
-AI assistant memory now follows the file workspace design from `方法.md` while PostgreSQL `chat_sessions` remains the business source of truth.
+AI assistant memory follows the file workspace design implemented in `backend/app/services/ai_assistant_file_memory.py`, while PostgreSQL `chat_sessions` remains the business source of truth.
 
 Runtime path:
 ```text

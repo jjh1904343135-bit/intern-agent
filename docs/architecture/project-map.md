@@ -56,7 +56,6 @@ backend/app/prompts/templates/
   resume/
   interview/
   notification/
-  rag/
 ```
 
 核心加载器：`backend/app/prompts/registry.py`。
@@ -118,7 +117,7 @@ interview_sessions.report.agent_state
 - `frontend/src/lib/api.ts`：统一 API 请求封装。
 - `frontend/src/lib/auth.ts`：Token 存取。
 
-本轮新增：`frontend/src/components/telegram-bind-card.tsx`，在 `/chat` 会话侧栏展示 Telegram 绑定入口。Telegram 绑定后复用 AI 助手，不接入面试助手。
+`frontend/src/components/telegram-bind-card.tsx` 在 `/chat` 会话侧栏展示 Telegram 绑定入口。Telegram 绑定后复用 AI 助手，不接入面试助手。
 
 定时任务入口同样在 `/chat`：`frontend/src/components/scheduled-task-panel.tsx` 展示最近任务和任务收件箱。用户主要通过自然语言创建任务，侧栏只提供刷新、暂停、恢复、取消和标记已读。
 

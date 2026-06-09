@@ -38,6 +38,10 @@ tmp/
 artifacts/
 *.log
 *.pid
+*.db
+*.sqlite
+*.sqlite3
+backend/evals/**/*_report.md
 
 # Local tool caches
 .claude/
