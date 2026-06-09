@@ -30,7 +30,7 @@ frontend/.turbo/
 frontend/.vite/
 
 # Runtime data and generated artifacts
-runtime/
+/runtime/
 backend/runtime/
 frontend/runtime/
 .tmp/
