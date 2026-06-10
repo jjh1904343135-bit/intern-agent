@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from app.prompts import PromptRegistry
@@ -17,23 +17,48 @@ class SupervisorTurn:
     prompt: str
     prompt_template_id: str = "chat/supervisor"
     prompt_template_version: str = "v1"
+    plan_source: str = "rule"
+    planner_confidence: float = 1.0
+    planner_issues: list[str] = field(default_factory=list)
 
 
 class SupervisorAgent:
     agent_name = "supervisor"
 
-    # Supervisor 可以先理解成“调度员”：它决定意图、步骤、可用工具和最终 Prompt。
     def plan_turn(self, *, message: str, history: list[dict] | None = None, tool_context: dict | None = None) -> SupervisorTurn:
-        # Supervisor 只产出规划结果：意图、步骤、工具和 Prompt，不直接访问数据库。
         intent = self._detect_intent(message)
         steps = self._steps_for_intent(intent)
         tools = self._tools_for_intent(intent)
         if self._should_use_knowledge_search(message=message, intent=intent) and "knowledge_search" not in tools:
             tools.append("knowledge_search")
+        return self.render_turn(
+            message=message,
+            history=history,
+            tool_context=tool_context,
+            intent=intent,
+            steps=steps,
+            tools=tools,
+            plan_source="rule",
+            planner_confidence=1.0,
+            planner_issues=[],
+        )
+
+    def render_turn(
+        self,
+        *,
+        message: str,
+        history: list[dict] | None = None,
+        tool_context: dict | None = None,
+        intent: str,
+        steps: list[str],
+        tools: list[str],
+        plan_source: str = "rule",
+        planner_confidence: float = 1.0,
+        planner_issues: list[str] | None = None,
+    ) -> SupervisorTurn:
         history_text = self._history_to_text(history or [])
         context_text = self._tool_context_to_text(tool_context or {})
         knowledge_context = self._knowledge_context_to_text(tool_context or {})
-        # PromptRegistry 负责加载 YAML 模板，保证 Prompt 可版本化、可测试。
         rendered = PromptRegistry().render(
             "chat/supervisor",
             {
@@ -50,12 +75,15 @@ class SupervisorAgent:
             agent_name=self.agent_name,
             intent=intent,
             focus=intent,
-            steps=steps,
-            tools=tools,
+            steps=list(steps),
+            tools=list(tools),
             system_prompt=rendered.system,
             prompt=rendered.user,
             prompt_template_id=rendered.template_id,
             prompt_template_version=rendered.version,
+            plan_source=plan_source,
+            planner_confidence=planner_confidence,
+            planner_issues=list(planner_issues or []),
         )
 
     def build_thinking_event(self, *, session_id: str, intent: str) -> dict[str, Any]:

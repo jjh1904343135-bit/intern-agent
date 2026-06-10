@@ -11,6 +11,7 @@ from uuid import uuid4
 from app.agents.chat import ChatAssistantAgent
 from app.agents.chat.complexity import AGENTIC_TASK, ChatComplexityClassifier
 from app.agents.chat.context_budget import ChatContextBudget, context_compression_metadata, maybe_compress_context
+from app.agents.chat.planner import ChatPlannerService
 from app.agents.runtime import AgentContext, AgentLifecycleRecorder, AgentRunner
 from app.agents.supervisor import SupervisorAgent, SupervisorTurn
 from app.core.providers.claude_provider import ClaudeProviderError
@@ -124,11 +125,25 @@ class ChatService:
         file_memory_service = AIMemoryFileService()
         file_memory_context = file_memory_service.read_context(user_id=user_id, session_id=conversation_id)
         memory_context = file_memory_service.public_context_metadata(file_memory_context)
-        base_turn = (
-            self._simple_turn(message=effective_message, history=history, file_memory_context=file_memory_context)
-            if complexity != AGENTIC_TASK
-            else self.supervisor.plan_turn(message=effective_message, history=history, tool_context={})
-        )
+        if complexity != AGENTIC_TASK:
+            base_turn = self._simple_turn(message=effective_message, history=history, file_memory_context=file_memory_context)
+        else:
+            plan = await ChatPlannerService(
+                provider=provider,
+                enabled=settings.chat_llm_planner_enabled,
+                max_tokens=settings.chat_llm_planner_max_tokens,
+            ).plan(message=effective_message, history=history, request_id=request_id)
+            base_turn = self.supervisor.render_turn(
+                message=effective_message,
+                history=history,
+                tool_context={},
+                intent=plan.intent,
+                steps=plan.steps,
+                tools=plan.tools,
+                plan_source=plan.source,
+                planner_confidence=plan.confidence,
+                planner_issues=plan.issues,
+            )
         lifecycle.complete(
             "BeforeTurn",
             session_id=conversation_id,
@@ -136,7 +151,13 @@ class ChatService:
             history_count=len(history),
             memory_count=memory_context.get("count", 0),
         )
-        lifecycle.complete("BeforeReasoning", intent=base_turn.intent, tools=base_turn.tools)
+        lifecycle.complete(
+            "BeforeReasoning",
+            intent=base_turn.intent,
+            tools=base_turn.tools,
+            planner_source=base_turn.plan_source,
+            planner_issues=base_turn.planner_issues,
+        )
         user_message_id = f"user-{uuid4()}"
         assistant_message_id = self._assistant_message_id_for_action(session=session, action=action)
         previous_assistant_content = self._last_message(session=session, role="assistant").get("content", "") if action == "continue" else ""
@@ -165,6 +186,9 @@ class ChatService:
                 "complexity": complexity,
                 "prompt_template_id": base_turn.prompt_template_id,
                 "prompt_template_version": base_turn.prompt_template_version,
+                "planner_source": base_turn.plan_source,
+                "planner_confidence": base_turn.planner_confidence,
+                "planner_issues": base_turn.planner_issues,
                 "memory_files_used": memory_context.get("memory_files", []),
                 "agent_pipeline": lifecycle.summary(),
             },
@@ -197,11 +221,20 @@ class ChatService:
             file_memory_context = compression["file_memory_context"]
             tool_context["assistant_file_memory"] = {"content": file_memory_context.get("summary_text", "")}
 
-        turn = (
-            self.supervisor.plan_turn(message=effective_message, history=history, tool_context=tool_context)
-            if complexity == AGENTIC_TASK
-            else self._simple_turn(message=effective_message, history=history, file_memory_context=file_memory_context)
-        )
+        if complexity == AGENTIC_TASK:
+            turn = self.supervisor.render_turn(
+                message=effective_message,
+                history=history,
+                tool_context=tool_context,
+                intent=base_turn.intent,
+                steps=base_turn.steps,
+                tools=base_turn.tools,
+                plan_source=base_turn.plan_source,
+                planner_confidence=base_turn.planner_confidence,
+                planner_issues=base_turn.planner_issues,
+            )
+        else:
+            turn = self._simple_turn(message=effective_message, history=history, file_memory_context=file_memory_context)
         lifecycle.complete(
             "PromptRender",
             prompt_chars=len(turn.prompt),
@@ -780,6 +813,9 @@ class ChatService:
             "complexity": complexity,
             "prompt_template_id": getattr(turn, "prompt_template_id", None),
             "prompt_template_version": getattr(turn, "prompt_template_version", None),
+            "planner_source": getattr(turn, "plan_source", "rule"),
+            "planner_confidence": getattr(turn, "planner_confidence", 1.0),
+            "planner_issues": list(getattr(turn, "planner_issues", []) or []),
             "memory_files_used": [
                 item.get("name")
                 for item in list((file_memory_context or {}).get("files_used") or [])

@@ -57,8 +57,8 @@ class ChatComplexityClassifier:
         if any(token in lowered for token in agentic_tokens):
             return AGENTIC_TASK
 
-        # 短问候和基础说明直接走 simple_answer，降低工具误触发和延迟。
-        simple_patterns = ["你好", "你是谁", "介绍一下", "解释一下", "什么是", "how are you", "hello", "hi"]
+        # 职业助手里的短问候、身份/功能说明、使用帮助类问题，直接走 simple_answer。
+        simple_patterns = ["你好", "你是谁", "你能做什么", "怎么用", "如何使用", "使用说明", "帮我做什么", "介绍一下你自己", "有什么功能", "帮我解释一下"]
         if len(text) <= 40 and any(pattern in lowered for pattern in simple_patterns):
             return SIMPLE_ANSWER
         if len(text) <= 20:

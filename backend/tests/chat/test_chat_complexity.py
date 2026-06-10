@@ -8,6 +8,7 @@ def test_chat_complexity_classifier_routes_small_talk_and_basic_explanations_to_
 
     assert classifier.classify("你好") == "simple_answer"
     assert classifier.classify("你是谁") == "simple_answer"
+    assert classifier.classify("你能做什么") == "simple_answer"
     assert classifier.classify("帮我解释一下 RAG") == "simple_answer"
 
 

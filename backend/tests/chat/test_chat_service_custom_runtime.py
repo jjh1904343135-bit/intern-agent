@@ -130,3 +130,59 @@ async def test_chat_service_intercepts_dream_command_before_scheduled_tasks_and_
     assert "Dream" in events[-1]["full_content"]
     assert events[-1]["metadata"]["intent"] == "memory_command"
     assert repository.persisted is None
+
+
+@pytest.mark.asyncio
+async def test_chat_service_reports_planner_metadata_for_agentic_turn(monkeypatch, tmp_path) -> None:
+    repository = FakeChatRepository()
+    service = ChatService(repository)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(settings, "llm_provider", "mock")
+    monkeypatch.setattr(settings, "ai_assistant_memory_dir", str(tmp_path))
+    monkeypatch.setattr(
+        ChatService,
+        "_run_tools",
+        lambda self, **kwargs: {
+            "resume_profile": {"available": False, "score": None, "risks": []},
+            "job_search": {"total": 0, "jobs": [], "top_titles": [], "source_kind": "test"},
+        },
+    )
+
+    events = [
+        event
+        async for event in service.stream_events(
+            user_id="user-custom",
+            message="Find Java backend internships in Beijing",
+            skip_scheduled_task_detection=True,
+        )
+    ]
+
+    metadata = events[-1]["metadata"]
+    assert metadata["intent"] == "job_search"
+    assert metadata["planner_source"] == "rule"
+    assert isinstance(metadata["planner_confidence"], float)
+    assert isinstance(metadata["planner_issues"], list)
+
+
+@pytest.mark.asyncio
+async def test_chat_service_memory_command_does_not_call_planner(monkeypatch, tmp_path) -> None:
+    repository = FakeChatRepository()
+    service = ChatService(repository)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(settings, "ai_assistant_memory_dir", str(tmp_path))
+
+    async def fail_planner(*args, **kwargs):
+        raise AssertionError("memory commands must not enter chat planning")
+
+    monkeypatch.setattr("app.services.chat_service.ChatPlannerService.plan", fail_planner)
+
+    events = [
+        event
+        async for event in service.stream_events(
+            user_id="user-custom",
+            message="/dream",
+            skip_scheduled_task_detection=True,
+        )
+    ]
+
+    assert events[-1]["metadata"]["intent"] == "memory_command"

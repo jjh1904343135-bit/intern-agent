@@ -40,6 +40,8 @@ class Settings(BaseSettings):
     llm_context_window_tokens: int = 8192
     llm_context_compression_ratio: float = 0.5
     llm_context_reserved_output_tokens: int = 900
+    chat_llm_planner_enabled: bool = True
+    chat_llm_planner_max_tokens: int = 500
     dream_enabled: bool = True
     dream_interval_hours: int = 2
     dream_max_batch_size: int = 20
